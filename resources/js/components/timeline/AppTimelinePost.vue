@@ -1,18 +1,29 @@
 <template>
-    <div class="media">
-        <img src="" alt="" class="timeline__avatar mr-3 rounded">
-        <div class="timeline__post media-body">
+    <div class="timeline__post media">
+        <img :src="post.author.data.avatar" alt="" class="timeline__avatar mr-3 rounded">
+        <div class="media-body">
             <div class="font-weight-bold">
-                Alex
+                {{ post.author.data.name }}
             </div>
             <p>
-                Post body
+                {{ post.body }}
             </p>
 
             <app-timeline-post-likes />
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        post: {
+            required: true,
+            type: Object
+        }
+    }
+}
+</script>
 
 <style>
     .timeline__post {
