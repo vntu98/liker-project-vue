@@ -13,7 +13,8 @@ class PostTransformer extends TransformerAbstract
      * @var array
      */
     protected $defaultIncludes = [
-        'author'
+        'author',
+        'likers'
     ];
     
     /**
@@ -35,11 +36,17 @@ class PostTransformer extends TransformerAbstract
         return [
             'id' => $post->id,
             'body' => $post->body,
+            'likes' => $post->likes_count
         ];
     }
 
     public function includeAuthor(Post $post)
     {
         return $this->item($post->user, new UserTransformer());
+    }
+
+    public function includeLikers(Post $post)
+    {
+        return $this->collection($post->likers, new UserTransformer());
     }
 }

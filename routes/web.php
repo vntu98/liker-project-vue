@@ -12,5 +12,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'api'], function () {
-    Route::get('posts', [PostController::class, 'index']);
+    Route::resource('posts', PostController::class);
 });

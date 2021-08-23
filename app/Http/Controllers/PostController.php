@@ -8,13 +8,42 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     public function index()
     {
-        $posts = Post::get();
+        $posts = Post::withCount('likes')->latest()->get();
 
         return fractal()
             ->collection($posts)
             ->transformWith(new PostTransformer())
             ->toArray();
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+
+        $post = $request->user()->posts()->create($request->only('body'));
+
+        return fractal()
+            ->item($post)
+            ->transformWith(new PostTransformer())
+            ->toArray();
+    }
+
+    public function update(Request $request)
+    {
+
+    }
+
+    public function destroy(Post $post)
+    {
+
     }
 }
