@@ -16,7 +16,7 @@ class PostPolicy
             return false;
         }
 
-        if ($user->id !== $post->user_id) {
+        if ($user->id === $post->user_id) {
             return false;
         }
 

@@ -37,7 +37,7 @@ class PostTransformer extends TransformerAbstract
         return [
             'id' => $post->id,
             'body' => $post->body,
-            'likes' => $post->likes_count
+            'likes' => $post->likes->count()
         ];
     }
 

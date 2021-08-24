@@ -1,4 +1,9 @@
+import store from './store'
+
 Echo.channel('posts')
     .listen('PostCreated', (e) => {
-        console.log(e)
+        store.dispatch('getPost', e.post.id)
+    })
+    .listen('PostLiked', (e) => {
+        store.dispatch('refreshPost', e.post.id)
     })
