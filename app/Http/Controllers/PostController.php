@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreated;
 use App\Models\Post;
 use App\Transformers\PostTransformer;
 use Illuminate\Http\Request;
@@ -30,6 +31,8 @@ class PostController extends Controller
         ]);
 
         $post = $request->user()->posts()->create($request->only('body'));
+
+        event(new PostCreated($post));
 
         return fractal()
             ->item($post)
